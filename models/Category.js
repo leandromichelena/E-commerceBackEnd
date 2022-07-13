@@ -7,13 +7,13 @@ class Category extends Model {}
 Category.init(
   {
     id: {
-      type: DataTypes.INTEGER(100),
+      type: DataTypes.INTEGER(32),
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
     category_name: {
-      type: DataTypes.STRING(100),
+      type: DataTypes.STRING(32),
       allowNull: false,
     }
   },
