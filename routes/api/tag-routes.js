@@ -48,7 +48,7 @@ router.get('/:id', (req, res) => {
   })
     .then((dbTagData) => {
       if (!dbTagData) {
-        res.status(404).json({ message: "No tags found with this id." });
+        res.status(404).json({ Alert: "Error 404: ID not found." });
         return;
       }
       res.json(dbTagData);
@@ -79,6 +79,21 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete on tag by its `id` value
+  Tag.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((data) => {
+      if (!data) {
+        res.status(404).json({ Alert: "Error 404: ID not found." });
+        return;
+      }
+      res.json(data);
+    })
+    .catch((err) => {
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;

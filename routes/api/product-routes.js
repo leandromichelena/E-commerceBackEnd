@@ -52,7 +52,7 @@ router.get('/:id', (req, res) => {
   })
     .then((data) => {
       if (!data) {
-        res.status(404)
+        res.status(404).json({ Alert: "Error 404: ID not found." });
         return;
       }
       res.json(data);
@@ -138,6 +138,22 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete one product by its `id` value
+  Product.destroy({
+    where: {
+      id: req.params.id,
+    },
+  })
+    .then((data) => {
+      if (!data) {
+        res.status(404).json({ Alert: "Error 404: ID not found." });
+        return;
+      }
+      res.json(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json(err);
+    });
 });
 
 module.exports = router;
